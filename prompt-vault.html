@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="PROMPT VAULT — 700+ elite AI prompts. Pay with Bitcoin. Instant delivery."/>
+<title>PROMPT VAULT</title>
+<style>
+
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+
+:root{
+  --white:#ffffff;
+  --off:#f5f5f7;
+  --light:#e8e8ed;
+  --mid:#6e6e73;
+  --dark:#1d1d1f;
+  --black:#000000;
+  --accent:#0071e3;
+  --radius:18px;
+}
+
+html{scroll-behavior:smooth;}
+body{background:var(--white);color:var(--dark);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:52px;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;
+}
+.nav-logo{font-size:1.05em;font-weight:600;letter-spacing:-0.3px;color:var(--dark);}
+.nav-right{display:flex;align-items:center;gap:28px;}
+.nav-link{font-size:0.82em;color:var(--mid);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+.nav-link:hover{color:var(--dark);}
+.nav-buy{
+  background:var(--accent);color:white;
+  border:none;padding:8px 20px;border-radius:30px;
+  font-size:0.8em;font-weight:600;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  transition:all 0.2s;
+  letter-spacing:-0.2px;
+}
+.nav-buy:hover{background:#0077ed;transform:scale(1.02);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:120px 30px 80px;
+  background:var(--white);
+}
+.hero-kicker{
+  font-size:0.8em;font-weight:500;
+  color:var(--accent);
+  letter-spacing:0.3px;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(2.8em,7vw,6em);
+  font-weight:700;
+  line-height:1.05;
+  letter-spacing:-2px;
+  color:var(--black);
+  margin-bottom:18px;
+  max-width:800px;
+}
+.hero h1 span{color:var(--mid);font-weight:200;}
+.hero-sub{
+  font-size:1.15em;
+  font-weight:300;
+  color:var(--mid);
+  max-width:520px;
+  line-height:1.65;
+  margin-bottom:44px;
+}
+.hero-cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:60px;}
+.btn-main{
+  background:var(--accent);color:white;
+  border:none;padding:17px 44px;border-radius:50px;
+  font-size:0.95em;font-weight:600;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  transition:all 0.25s;
+  letter-spacing:-0.3px;
+}
+.btn-main:hover{background:#0077ed;transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,113,227,0.3);}
+.btn-ghost{
+  background:transparent;color:var(--accent);
+  border:1.5px solid rgba(0,113,227,0.3);
+  padding:17px 36px;border-radius:50px;
+  font-size:0.95em;font-weight:500;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  transition:all 0.25s;
+  letter-spacing:-0.3px;
+}
+.btn-ghost:hover{border-color:var(--accent);background:rgba(0,113,227,0.04);}
+
+.hero-img{
+  width:100%;max-width:680px;
+  border-radius:28px;
+  box-shadow:0 40px 100px rgba(0,0,0,0.12),0 8px 30px rgba(0,0,0,0.08);
+  display:block;margin:0 auto;
+}
+
+/* METRICS */
+.metrics{
+  background:var(--off);
+  padding:50px 44px;
+  display:flex;justify-content:center;gap:80px;flex-wrap:wrap;
+}
+.metric{text-align:center;}
+.metric-num{font-size:2.8em;font-weight:700;letter-spacing:-2px;color:var(--dark);}
+.metric-label{font-size:0.8em;color:var(--mid);font-weight:400;margin-top:4px;letter-spacing:-0.2px;}
+
+/* SECTION */
+.section{max-width:980px;margin:0 auto;padding:90px 30px;}
+.section-kicker{font-size:0.8em;font-weight:500;color:var(--accent);margin-bottom:14px;}
+.section-h{
+  font-size:clamp(1.8em,4vw,3.2em);
+  font-weight:700;letter-spacing:-1.5px;
+  color:var(--black);line-height:1.1;
+  margin-bottom:16px;
+}
+.section-sub{font-size:1em;color:var(--mid);line-height:1.7;max-width:500px;font-weight:300;}
+
+/* FEATURE GRID */
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2px;
+  background:var(--light);
+  border-radius:var(--radius);
+  overflow:hidden;
+  margin-top:50px;
+}
+.feat{
+  background:var(--white);
+  padding:36px 32px;
+  transition:background 0.2s;
+}
+.feat:hover{background:var(--off);}
+.feat-icon{font-size:1.6em;margin-bottom:14px;}
+.feat-title{font-size:0.95em;font-weight:600;color:var(--dark);margin-bottom:8px;letter-spacing:-0.3px;}
+.feat-desc{font-size:0.82em;color:var(--mid);line-height:1.6;}
+
+/* PROMPT SECTION */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.pill{
+  background:var(--off);border:1.5px solid transparent;
+  padding:8px 18px;border-radius:30px;
+  font-size:0.78em;font-weight:500;cursor:pointer;
+  transition:all 0.2s;color:var(--mid);
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+}
+.pill:hover{color:var(--dark);}
+.pill.on{background:var(--dark);color:white;border-color:var(--dark);}
+
+.pgrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;
+}
+.pcard{
+  background:var(--off);
+  border-radius:var(--radius);
+  padding:28px;
+  cursor:pointer;
+  transition:all 0.25s;
+  border:1px solid transparent;
+  position:relative;overflow:hidden;
+}
+.pcard:hover{
+  background:var(--white);
+  border-color:var(--light);
+  box-shadow:0 8px 40px rgba(0,0,0,0.08);
+  transform:translateY(-2px);
+}
+.pcard-cat{
+  font-size:0.65em;font-weight:600;
+  color:var(--accent);
+  text-transform:uppercase;letter-spacing:1px;
+  margin-bottom:10px;
+}
+.pcard-title{
+  font-size:0.95em;font-weight:600;
+  color:var(--dark);margin-bottom:8px;
+  letter-spacing:-0.3px;line-height:1.3;
+}
+.pcard-desc{font-size:0.78em;color:var(--mid);line-height:1.6;margin-bottom:18px;}
+.pcard-preview{
+  background:var(--white);
+  border:1px solid var(--light);
+  border-radius:10px;padding:12px;
+  font-size:0.68em;color:rgba(0,0,0,0.2);
+  font-family:monospace;line-height:1.5;
+  filter:blur(2px);user-select:none;
+  position:relative;
+}
+.pcard-lock{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:var(--dark);color:white;
+  font-size:0.72em;font-weight:600;
+  padding:5px 14px;border-radius:20px;
+  white-space:nowrap;filter:blur(0);
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  letter-spacing:-0.2px;
+}
+.pcard-footer{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:14px;
+}
+.pcard-tier{font-size:0.7em;color:var(--mid);}
+.pcard-stars{font-size:0.72em;color:var(--accent);}
+
+/* PRICING */
+.pricing-wrap{background:var(--black);padding:100px 30px;}
+.pricing-inner{max-width:980px;margin:0 auto;}
+.pricing-head{text-align:center;margin-bottom:60px;}
+.pricing-head .section-kicker{color:rgba(255,255,255,0.5);}
+.pricing-head .section-h{color:white;}
+.pgrid-prices{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:20px;
+}
+.prc{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:24px;
+  padding:40px 32px;
+  transition:all 0.3s;
+  position:relative;
+}
+.prc:hover{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.07);}
+.prc.hot{
+  background:var(--white);
+  border-color:transparent;
+}
+.prc.hot:hover{transform:scale(1.01);box-shadow:0 20px 60px rgba(255,255,255,0.1);}
+.prc-badge{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:white;
+  font-size:0.65em;font-weight:700;
+  padding:5px 18px;border-radius:30px;
+  letter-spacing:0.5px;white-space:nowrap;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+}
+.prc-tier{
+  font-size:0.72em;font-weight:600;
+  color:rgba(255,255,255,0.4);
+  letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.prc.hot .prc-tier{color:var(--mid);}
+.prc-price{
+  font-size:3.2em;font-weight:700;
+  letter-spacing:-2px;
+  color:white;line-height:1;margin-bottom:6px;
+}
+.prc.hot .prc-price{color:var(--black);}
+.prc-btc{font-size:0.45em;font-weight:400;vertical-align:super;}
+.prc-usd{font-size:0.82em;color:rgba(255,255,255,0.35);margin-bottom:28px;}
+.prc.hot .prc-usd{color:var(--mid);}
+.prc-list{list-style:none;margin-bottom:32px;border-top:1px solid rgba(255,255,255,0.08);padding-top:24px;}
+.prc.hot .prc-list{border-color:var(--light);}
+.prc-list li{
+  font-size:0.83em;color:rgba(255,255,255,0.6);
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+  display:flex;align-items:center;gap:10px;line-height:1.4;
+}
+.prc.hot .prc-list li{color:var(--mid);border-color:var(--light);}
+.prc-list li::before{content:'✓';color:rgba(255,255,255,0.3);font-size:0.85em;flex-shrink:0;}
+.prc.hot .prc-list li::before{color:var(--accent);}
+.prc-btn{
+  width:100%;padding:15px;border-radius:12px;
+  border:1px solid rgba(255,255,255,0.2);
+  background:transparent;color:white;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  font-size:0.82em;font-weight:600;cursor:pointer;
+  transition:all 0.2s;letter-spacing:-0.2px;
+}
+.prc-btn:hover{background:rgba(255,255,255,0.08);}
+.prc.hot .prc-btn{
+  background:var(--accent);color:white;border:none;
+  box-shadow:0 8px 30px rgba(0,113,227,0.4);
+}
+.prc.hot .prc-btn:hover{background:#0077ed;box-shadow:0 12px 40px rgba(0,113,227,0.5);}
+
+/* SOCIAL PROOF */
+.tgrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:16px;
+  margin-top:50px;
+}
+.tcard{
+  background:var(--off);
+  border-radius:var(--radius);
+  padding:28px;
+  border:1px solid transparent;
+  transition:all 0.2s;
+}
+.tcard:hover{background:var(--white);border-color:var(--light);box-shadow:0 4px 20px rgba(0,0,0,0.06);}
+.tcard-stars{color:var(--accent);font-size:0.82em;margin-bottom:14px;}
+.tcard-text{
+  font-size:0.88em;color:var(--dark);
+  line-height:1.7;margin-bottom:20px;
+  font-style:italic;font-weight:300;
+}
+.tcard-author{display:flex;align-items:center;gap:12px;}
+.tcard-av{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--dark);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.85em;font-weight:700;flex-shrink:0;
+}
+.tcard-name{font-size:0.85em;font-weight:600;color:var(--dark);}
+.tcard-role{font-size:0.72em;color:var(--mid);}
+
+/* FAQ */
+.faq{margin-top:50px;}
+.fq{border-bottom:1px solid var(--light);padding:22px 0;cursor:pointer;}
+.fq-q{
+  display:flex;justify-content:space-between;
+  align-items:center;
+  font-size:0.92em;font-weight:500;color:var(--dark);
+}
+.fq-q span{color:var(--mid);font-size:1.1em;transition:transform 0.25s;}
+.fq.on .fq-q span{transform:rotate(45deg);}
+.fq-a{
+  display:none;font-size:0.83em;color:var(--mid);
+  line-height:1.75;padding-top:14px;max-width:660px;
+}
+.fq.on .fq-a{display:block;}
+
+/* FINAL CTA */
+.final{
+  background:var(--black);
+  text-align:center;
+  padding:120px 30px;
+}
+.final h2{
+  font-size:clamp(2em,5vw,4em);
+  font-weight:700;letter-spacing:-2px;
+  color:white;margin-bottom:18px;
+}
+.final p{font-size:1em;color:rgba(255,255,255,0.45);font-weight:300;margin-bottom:44px;line-height:1.6;}
+.final-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{
+  background:var(--off);
+  border-top:1px solid var(--light);
+  padding:44px;
+  display:flex;justify-content:space-between;
+  align-items:center;flex-wrap:wrap;gap:20px;
+}
+.footer-brand{font-size:0.88em;font-weight:600;color:var(--dark);}
+.footer-wallet{
+  font-family:monospace;font-size:0.7em;
+  color:var(--mid);background:var(--white);
+  padding:8px 14px;border-radius:8px;
+  border:1px solid var(--light);cursor:pointer;
+  transition:all 0.2s;
+}
+.footer-wallet:hover{color:var(--dark);}
+.footer-copy{font-size:0.72em;color:var(--mid);}
+
+/* MODAL */
+.overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(12px);
+  z-index:2000;
+  align-items:center;justify-content:center;
+}
+.overlay.on{display:flex;}
+.modal{
+  background:white;
+  border-radius:28px;
+  padding:48px 40px;
+  max-width:440px;width:92%;
+  text-align:center;
+  position:relative;
+  box-shadow:0 40px 100px rgba(0,0,0,0.2);
+}
+.modal-x{
+  position:absolute;top:20px;right:20px;
+  background:var(--off);border:none;
+  width:30px;height:30px;border-radius:50%;
+  font-size:1em;cursor:pointer;color:var(--mid);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.modal-x:hover{background:var(--light);}
+.modal-kicker{font-size:0.72em;font-weight:600;color:var(--accent);margin-bottom:8px;}
+.modal-title{font-size:1.6em;font-weight:700;letter-spacing:-0.8px;color:var(--black);margin-bottom:6px;}
+.modal-plan{font-size:0.82em;color:var(--mid);margin-bottom:28px;}
+.modal-qr img{
+  width:170px;height:170px;
+  background:white;border-radius:16px;
+  border:2px solid var(--light);
+  display:block;margin:0 auto 22px;
+  padding:6px;
+}
+.modal-amount{
+  font-size:2.6em;font-weight:700;
+  letter-spacing:-2px;color:var(--black);margin-bottom:6px;
+}
+.modal-usd{font-size:0.82em;color:var(--mid);margin-bottom:20px;}
+.modal-addr-lbl{font-size:0.68em;color:var(--mid);margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
+.modal-addr{
+  font-family:monospace;font-size:0.72em;
+  color:var(--mid);word-break:break-all;
+  background:var(--off);border:1px solid var(--light);
+  border-radius:10px;padding:12px 14px;
+  cursor:pointer;margin-bottom:14px;
+  transition:all 0.2s;
+}
+.modal-addr:hover{color:var(--dark);border-color:var(--accent);}
+.modal-copy-btn{
+  width:100%;padding:15px;
+  background:var(--dark);color:white;
+  border:none;border-radius:12px;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  font-size:0.85em;font-weight:600;cursor:pointer;
+  transition:all 0.2s;letter-spacing:-0.2px;
+  margin-bottom:20px;
+}
+.modal-copy-btn:hover{background:#000;box-shadow:0 6px 20px rgba(0,0,0,0.2);}
+.modal-steps{
+  background:var(--off);border-radius:12px;
+  padding:18px;text-align:left;
+}
+.mstep{
+  display:flex;gap:12px;font-size:0.75em;
+  color:var(--mid);padding:8px 0;
+  border-bottom:1px solid var(--light);line-height:1.5;
+}
+.mstep:last-child{border-bottom:none;}
+.mstep-n{
+  width:20px;height:20px;flex-shrink:0;
+  background:var(--dark);color:white;
+  border-radius:50%;display:flex;
+  align-items:center;justify-content:center;
+  font-size:0.78em;font-weight:700;
+}
+.modal-ok{
+  display:none;margin-top:12px;padding:10px 14px;
+  background:rgba(0,200,80,0.08);
+  border:1px solid rgba(0,200,80,0.25);
+  border-radius:8px;font-size:0.75em;
+  color:rgb(0,150,60);
+}
+.modal-ok.on{display:block;}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nav-right .nav-link{display:none;}
+  .metrics{gap:40px;padding:40px 20px;}
+  .section{padding:70px 20px;}
+  footer{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Prompt Vault</div>
+  <div class="nav-right">
+    <a class="nav-link" onclick="document.getElementById('prompts').scrollIntoView({behavior:'smooth'})">Prompts</a>
+    <a class="nav-link" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Pricing</a>
+    <a class="nav-link" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'})">FAQ</a>
+    <button class="nav-buy" onclick="openPayment('0.003','Vault Access — 200+ Prompts')">Buy Now</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-kicker">The world's most intelligent AI prompt collection</div>
+  <h1>Intelligence,<br/><span>bottled.</span></h1>
+  <p class="hero-sub">700+ elite AI prompts engineered for maximum output. Used by the world's top operators, developers, and traders. One Bitcoin payment. Yours forever.</p>
+  <div class="hero-cta-group">
+    <button class="btn-main" onclick="openPayment('0.003','Vault Access — 200+ Prompts')">Get Vault Access — 0.003 BTC</button>
+    <button class="btn-ghost" onclick="document.getElementById('prompts').scrollIntoView({behavior:'smooth'})">Preview prompts</button>
+  </div>
+  <img class="hero-img" src="https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/a51eddb93_generated_image.png" alt="Prompt Vault"/>
+</section>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="metric"><div class="metric-num">500+</div><div class="metric-label">Premium Prompts</div></div>
+  <div class="metric"><div class="metric-num">12</div><div class="metric-label">Categories</div></div>
+  <div class="metric"><div class="metric-num">∞</div><div class="metric-label">Lifetime Access</div></div>
+  <div class="metric"><div class="metric-num">₿</div><div class="metric-label">Bitcoin Only</div></div>
+</div>
+
+<!-- WHAT'S INSIDE -->
+<div class="section">
+  <div class="section-kicker">What you get</div>
+  <div class="section-h">Not prompts.<br/>Superpowers.</div>
+  <p class="section-sub">Every prompt is engineered — not collected. These are the exact frameworks top AI operators use to get results no one else can replicate.</p>
+  <div class="features">
+    <div class="feat"><div class="feat-icon">💼</div><div class="feat-title">Business & Money</div><div class="feat-desc">7-figure business plans, cold outreach that converts, passive income blueprints, negotiation scripts, pricing strategies.</div></div>
+    <div class="feat"><div class="feat-icon">🤖</div><div class="feat-title">AI Agent Frameworks</div><div class="feat-desc">Multi-agent orchestration, autonomous research protocols, self-executing workflows that run without human input.</div></div>
+    <div class="feat"><div class="feat-icon">₿</div><div class="feat-title">Crypto Intelligence</div><div class="feat-desc">On-chain analysis engines, DeFi yield optimizers, market intelligence frameworks used by professional traders.</div></div>
+    <div class="feat"><div class="feat-icon">🎨</div><div class="feat-title">Creative & Content</div><div class="feat-desc">Turn 1 idea into 50 pieces of viral content. Brand builders, storytelling systems, copywriting that converts.</div></div>
+    <div class="feat"><div class="feat-icon">🔓</div><div class="feat-title">Advanced Techniques</div><div class="feat-desc">Persona engineering, system prompt architecture, jailbreak frameworks, and capability unlock techniques.</div></div>
+    <div class="feat"><div class="feat-icon">⚡</div><div class="feat-title">Life & Productivity OS</div><div class="feat-desc">Decision intelligence, habit systems, mental models, and life architecture used by world-class performers.</div></div>
+  </div>
+</div>
+
+<!-- PROMPT PREVIEW -->
+<div class="section" id="prompts" style="padding-top:0;">
+  <div class="section-kicker">Sample the vault</div>
+  <div class="section-h">A glimpse inside.</div>
+  <div style="height:40px;"></div>
+  <div class="filter-bar">
+    <div class="pill on" onclick="fp(this,'all')">All</div>
+    <div class="pill" onclick="fp(this,'business')">Business</div>
+    <div class="pill" onclick="fp(this,'ai')">AI Agents</div>
+    <div class="pill" onclick="fp(this,'crypto')">Crypto</div>
+    <div class="pill" onclick="fp(this,'money')">Money</div>
+    <div class="pill" onclick="fp(this,'creative')">Creative</div>
+    <div class="pill" onclick="fp(this,'advanced')">Advanced</div>
+    <div class="pill" onclick="fp(this,'productivity')">Productivity</div>
+  </div>
+  <div class="pgrid" id="pgrid"></div>
+  <div style="text-align:center;margin-top:50px;">
+    <p style="font-size:0.85em;color:var(--mid);margin-bottom:22px;">This is 2% of the vault. 700+ prompts inside.</p>
+    <button class="btn-main" onclick="openPayment('0.003','Vault Access — 200+ Prompts')">Unlock all 700+ prompts</button>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-wrap" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-head">
+      <div class="section-kicker">Pricing</div>
+      <div class="section-h" style="text-align:center;">One payment.<br/>Lifetime access.</div>
+    </div>
+    <div class="pgrid-prices">
+      <div class="prc">
+        <div class="prc-tier">Starter</div>
+        <div class="prc-price"><span class="prc-btc">₿</span>0.001</div>
+        <div class="prc-usd">≈ $95 USD — one time</div>
+        <ul class="prc-list">
+          <li>50 hand-picked premium prompts</li>
+          <li>3 categories of your choice</li>
+          <li>Business & marketing included</li>
+          <li>Instant PDF download</li>
+          <li>Lifetime access, no expiry</li>
+        </ul>
+        <button class="prc-btn" onclick="openPayment('0.001','Starter — 50 Prompts')">Pay 0.001 BTC</button>
+      </div>
+      <div class="prc hot">
+        <div class="prc-badge">Most Popular</div>
+        <div class="prc-tier">Vault Access</div>
+        <div class="prc-price" style="color:var(--black);"><span class="prc-btc" style="color:var(--accent);">₿</span>0.003</div>
+        <div class="prc-usd">≈ $285 USD — one time</div>
+        <ul class="prc-list">
+          <li>200+ elite prompts — all categories</li>
+          <li>AI agent orchestration frameworks</li>
+          <li>Advanced system prompt engineering</li>
+          <li>Crypto & DeFi intelligence suite</li>
+          <li>Jailbreak & capability unlock prompts</li>
+          <li>Instant download, lifetime access</li>
+        </ul>
+        <button class="prc-btn" onclick="openPayment('0.003','Vault Access — 200+ Prompts')">Pay 0.003 BTC</button>
+      </div>
+      <div class="prc">
+        <div class="prc-tier">Elite Vault</div>
+        <div class="prc-price"><span class="prc-btc">₿</span>0.008</div>
+        <div class="prc-usd">≈ $760 USD — one time</div>
+        <ul class="prc-list">
+          <li>Complete library of 700+ prompts</li>
+          <li>Every category and technique</li>
+          <li>Agent-to-agent communication prompts</li>
+          <li>Full AI business automation toolkit</li>
+          <li>Commercial resell rights included</li>
+          <li>Priority access to future additions</li>
+          <li>Lifetime access, no expiry</li>
+        </ul>
+        <button class="prc-btn" onclick="openPayment('0.008','Elite Vault — 500+ Prompts + Resell Rights')">Pay 0.008 BTC</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div class="section">
+  <div class="section-kicker">Social proof</div>
+  <div class="section-h">People love it.</div>
+  <div class="tgrid">
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"The AI agent frameworks alone are worth 100x the price. I've automated my entire pipeline and now run 3 businesses solo — me and AI."</div><div class="tcard-author"><div class="tcard-av">M</div><div><div class="tcard-name">Marcus T.</div><div class="tcard-role">Agency Founder, London</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"The crypto prompts are dangerous. Used 3 of them, hit on all 3 trades. Paid for the vault 20x over in a week."</div><div class="tcard-author"><div class="tcard-av">S</div><div><div class="tcard-name">Sarah K.</div><div class="tcard-role">Crypto Trader, Dubai</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"I'm an AI developer. I thought I knew everything about prompting. This vault humbled me. On another level entirely."</div><div class="tcard-author"><div class="tcard-av">J</div><div><div class="tcard-name">James R.</div><div class="tcard-role">AI Engineer, San Francisco</div></div></div></div>
+    <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Business plan generator helped me raise $250k. Best investment I made this year. Bitcoin payment took 2 minutes."</div><div class="tcard-author"><div class="tcard-av">A</div><div><div class="tcard-name">Amir H.</div><div class="tcard-role">Startup Founder, Berlin</div></div></div></div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section" id="faq" style="padding-top:0;">
+  <div class="section-kicker">FAQ</div>
+  <div class="section-h">Questions answered.</div>
+  <div class="faq">
+    <div class="fq" onclick="this.classList.toggle('on')"><div class="fq-q">How do I pay and receive my prompts? <span>+</span></div><div class="fq-a">Click any Buy button. Send the exact BTC amount to the wallet address shown. Then email your transaction ID to promptvault@proton.me — you'll receive your complete vault within 1 hour, usually much faster.</div></div>
+    <div class="fq" onclick="this.classList.toggle('on')"><div class="fq-q">Why Bitcoin only? <span>+</span></div><div class="fq-a">Bitcoin is instant, global, and borderless. No chargebacks. No middlemen. Your payment goes directly to the creator. We believe in financial freedom.</div></div>
+    <div class="fq" onclick="this.classList.toggle('on')"><div class="fq-q">Which AI tools do these work with? <span>+</span></div><div class="fq-a">Every prompt is optimized for ChatGPT-4, Claude 3, Gemini Ultra, Grok, Mistral, and all major language models. Fully model-agnostic.</div></div>
+    <div class="fq" onclick="this.classList.toggle('on')"><div class="fq-q">What are resell rights (Elite tier)? <span>+</span></div><div class="fq-a">Elite buyers get full commercial rights to resell the vault as their own product and keep 100% of revenue. Sell anywhere, at any price, forever.</div></div>
+    <div class="fq" onclick="this.classList.toggle('on')"><div class="fq-q">Are these prompts actually unique? <span>+</span></div><div class="fq-a">Yes. Engineered through thousands of hours of real-world AI work. Not scraped, not recycled, not available anywhere else.</div></div>
+    <div class="fq" onclick="this.classList.toggle('on')"><div class="fq-q">Refund policy? <span>+</span></div><div class="fq-a">Due to the instant digital nature, all Bitcoin payments are final. This is standard for digital goods paid with crypto.</div></div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final">
+  <h2>Ready?</h2>
+  <p>700+ prompts. Instant download.<br/>Pay with Bitcoin. Use forever.</p>
+  <div class="final-btns">
+    <button class="btn-main" onclick="openPayment('0.003','Vault Access — 200+ Prompts')">Get Vault Access — 0.003 BTC</button>
+    <button style="background:rgba(255,255,255,0.08);color:white;border:1.5px solid rgba(255,255,255,0.15);padding:17px 36px;border-radius:50px;font-size:0.95em;font-weight:500;cursor:pointer;font-family:Inter,sans-serif;transition:all 0.25s;" onclick="openPayment('0.008','Elite Vault — 500+ Prompts + Resell Rights')">Elite Vault — 0.008 BTC</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Prompt Vault — Pay with Bitcoin</div>
+  <div class="footer-wallet" onclick="navigator.clipboard.writeText('3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx')">₿ 3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx</div>
+  <div class="footer-copy">© 2026 Prompt Vault · Digital product · No refunds</div>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM()">×</button>
+    <div class="modal-kicker">Complete your purchase</div>
+    <div class="modal-title">Send Bitcoin</div>
+    <div class="modal-plan" id="m-plan">Vault Access — 200+ Prompts</div>
+    <div class="modal-qr"><img id="m-qr" src="" alt="BTC QR"/></div>
+    <div class="modal-amount" id="m-amt">0.003 BTC</div>
+    <div class="modal-usd" id="m-usd">≈ $285 USD</div>
+    <div class="modal-addr-lbl">Bitcoin address</div>
+    <div class="modal-addr" onclick="copyAddr()" id="m-addr">3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx</div>
+    <button class="modal-copy-btn" onclick="copyAddr()">Copy Bitcoin Address</button>
+    <div class="modal-steps">
+      <div class="mstep"><div class="mstep-n">1</div><div>Copy the address above or scan the QR code with your wallet app</div></div>
+      <div class="mstep"><div class="mstep-n">2</div><div>Send the exact BTC amount shown</div></div>
+      <div class="mstep"><div class="mstep-n">3</div><div>Email your transaction ID to <strong>promptvault@proton.me</strong> — receive prompts within 1 hour</div></div>
+    </div>
+    <div class="modal-ok" id="m-ok">✓ Address copied to clipboard</div>
+  </div>
+</div>
+
+<script>
+const W='3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx';
+const USD={'0.001':95,'0.003':285,'0.008':760};
+
+const PROMPTS=[
+  {cat:'business',title:'7-Figure Business Plan Generator',desc:'Investor-ready business plan with financials, TAM analysis, go-to-market, and competitive moat in under 5 minutes.',preview:'You are a Harvard MBA and McKinsey consultant. Build a complete business plan for [IDEA] targeting [MARKET]. Include: executive summary, TAM/SAM/SOM...'},
+  {cat:'ai',title:'Multi-Agent Orchestration Framework',desc:'Deploy coordinated AI agent teams that communicate, delegate, and execute complex workflows autonomously.',preview:'You are the master orchestrator. Deploy agents: RESEARCHER, ANALYST, EXECUTOR, REVIEWER. Each has a specific role and reports findings sequentially...'},
+  {cat:'crypto',title:'Deep Crypto Intelligence Engine',desc:'Professional-grade crypto analysis using on-chain metrics, sentiment, macro context, and technical frameworks.',preview:'You are a tier-1 crypto analyst. Analyze [COIN] using: MVRV ratio, NVT signal, exchange flows, whale behavior, and macro context...'},
+  {cat:'money',title:'Passive Income Architecture System',desc:'5 personalized passive income streams ranked by ROI, timeline, and capital — tailored to your exact profile.',preview:'Act as a wealth architect. My situation: [SKILLS], [CAPITAL], [TIME]. Design 5 passive income streams ranked by (ROI x automation) / difficulty...'},
+  {cat:'creative',title:'Viral Content Multiplication Engine',desc:'One core idea becomes 13 pieces of platform-optimized viral content across every major channel.',preview:'Take this idea: [IDEA]. Transform it into: Twitter thread, 3 standalone tweets, TikTok scripts, LinkedIn posts, YouTube outline, email...'},
+  {cat:'advanced',title:'Elite Persona Engineering System',desc:'Design deeply sophisticated AI personas with full personalities, knowledge domains, and behavioral parameters.',preview:'You are now [PERSONA]. Background: [X]. Expertise: [Y]. Communication style: [Z]. Always: [BEHAVIORS]. Never: [RESTRICTIONS]...'},
+  {cat:'productivity',title:'Life Operating System Design',desc:'Complete personal OS: morning protocol, weekly architecture, decision frameworks, goal systems, environment design.',preview:'You are a master performance coach. Design a complete Life OS for: [SITUATION]. Include morning protocol, decision filters, weekly architecture...'},
+  {cat:'business',title:'Cold Outreach That Converts 40%+',desc:'Hyper-personalized outreach with psychological triggers that achieve 40%+ reply rates across any industry.',preview:'You are the world\'s best sales psychologist. Write a 3-part outreach sequence for [PROSPECT] at [COMPANY]. Use: pattern interrupt, loss aversion, specificity...'},
+  {cat:'crypto',title:'DeFi Yield Optimization Strategy',desc:'Risk-adjusted yield strategy across the full DeFi landscape — tailored to your capital and risk profile.',preview:'You are a DeFi specialist. Capital=[AMOUNT], Risk=[LEVEL]. Optimize yield across: lending protocols, LPs, yield aggregators. Show APY math...'},
+  {cat:'ai',title:'Autonomous Research Agent Protocol',desc:'An AI agent that deep-researches any topic, cross-references sources, and produces expert-level reports.',preview:'MISSION: Research [TOPIC]. PHASE 1: Map landscape. PHASE 2: Deep analysis. PHASE 3: Synthesis report with contrarian insights...'},
+  {cat:'advanced',title:'Decision Intelligence Framework',desc:'Eliminates bad decisions using first principles, probability mapping, pre-mortem analysis, and reversibility testing.',preview:'Decision: [X]. Options: A vs B vs C. Run: first principles stripping, probability mapping with EVs, pre-mortem for each, second-order effects...'},
+  {cat:'money',title:'Digital Product Empire from Zero',desc:'Complete roadmap from zero to $10k/month building and scaling digital products with AI as your entire team.',preview:'You are a 7-figure info product expert. Design a complete digital product empire for: [SKILLS], [STARTING_POINT]. Include: product creation, launch, scale...'},
+  {cat:'biohacking',title:'Neuroplasticity Accelerator Protocol',desc:'AI-powered brain optimization using neuroscience, sleep architecture, and cognitive enhancement techniques used by world-class performers.',preview:'You are a world-class neuroscientist and cognitive performance specialist. Design a complete neuroplasticity protocol for [GOAL]. Include: sleep optimization, nootropic framework, learning acceleration...'},
+  {cat:'biohacking',title:'Longevity & Anti-Aging Blueprint',desc:'Science-backed longevity strategy synthesizing the latest research from Sinclair, Attia, and top longevity labs worldwide.',preview:'You are a longevity physician. Using Hallmarks of Aging framework and latest research, design a personalized longevity protocol for [AGE/PROFILE]. Include: biomarkers to track, interventions ranked by evidence...'},
+  {cat:'biohacking',title:'Peak Performance Biohacking Stack',desc:'Complete biohacking system: HRV optimization, cold/heat protocols, fasting windows, and supplement stacks for elite performance.',preview:'You are an elite performance biologist. Build a complete biohacking stack for [GOAL]. Include: morning protocol, HRV targets, cold exposure timing, fasting windows, supplement sequencing by time of day...'},
+  {cat:'biohacking',title:'Gut-Brain Axis Optimization Engine',desc:'Microbiome intelligence connecting gut health to mental performance, mood, and cognitive clarity — personalized to you.',preview:'You are a microbiome scientist and functional medicine expert. Analyze gut-brain axis for [SYMPTOMS/GOALS]. Design: microbiome testing interpretation, dietary interventions, probiotic protocol...'},
+];
+
+function renderP(cat){
+  const list=cat==='all'?PROMPTS:PROMPTS.filter(p=>p.cat===cat);
+  document.getElementById('pgrid').innerHTML=list.map(p=>`
+    <div class="pcard" onclick="openPayment('0.003','Vault Access — 200+ Prompts')">
+      <div class="pcard-cat">${p.cat}</div>
+      <div class="pcard-title">${p.title}</div>
+      <div class="pcard-desc">${p.desc}</div>
+      <div class="pcard-preview">${p.preview}<div class="pcard-lock">Unlock</div></div>
+      <div class="pcard-footer"><div class="pcard-tier">All tiers</div><div class="pcard-stars">★★★★★</div></div>
+    </div>`).join('');
+}
+
+function fp(el,cat){
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');renderP(cat);
+}
+
+function openPayment(amount,plan){
+  const uri=`bitcoin:${W}?amount=${amount}&label=${encodeURIComponent('Prompt Vault')}`;
+  document.getElementById('m-plan').textContent=plan;
+  document.getElementById('m-amt').textContent=amount+' BTC';
+  document.getElementById('m-usd').textContent='≈ $'+USD[amount]+' USD';
+  document.getElementById('m-qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=${encodeURIComponent(uri)}&color=000000&bgcolor=ffffff`;
+  document.getElementById('overlay').className='overlay on';
+}
+
+function closeM(){document.getElementById('overlay').className='overlay';}
+
+function copyAddr(){
+  navigator.clipboard.writeText(W);
+  const ok=document.getElementById('m-ok');
+  ok.className='modal-ok on';
+  const btn=document.querySelector('.modal-copy-btn');
+  btn.textContent='✓ Copied';
+  setTimeout(()=>{ok.className='modal-ok';btn.textContent='Copy Bitcoin Address';},3000);
+}
+
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeM();});
+renderP('all');
+</script>
+</body>
+</html>
