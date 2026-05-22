@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="AI ORIGIN — Original digital art for elite AI agents and collectors. Pay with Bitcoin."/>
+<title>AI ORIGIN — Digital Art for the Intelligence Age</title>
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+:root{--w:#fff;--off:#f5f5f7;--lt:#e8e8ed;--mid:#6e6e73;--dk:#1d1d1f;--bk:#000;--blue:#0071e3;}
+html{scroll-behavior:smooth;}
+body{background:var(--bk);color:var(--w);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;overflow-x:hidden;}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:52px;background:rgba(0,0,0,0.85);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 44px;
+}
+.logo{font-size:1.05em;font-weight:600;letter-spacing:-0.3px;color:var(--w);}
+.logo span{color:rgba(255,255,255,0.4);font-weight:300;}
+.nbuy{
+  background:var(--w);color:var(--bk);
+  border:none;padding:8px 22px;border-radius:30px;
+  font-size:0.8em;font-weight:600;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;transition:all 0.2s;
+}
+.nbuy:hover{background:var(--lt);transform:scale(1.02);}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:120px 30px 80px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,0.03) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-label{
+  font-size:0.75em;font-weight:500;
+  color:rgba(255,255,255,0.4);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-size:clamp(3em,9vw,8em);
+  font-weight:700;letter-spacing:-4px;
+  line-height:0.95;color:var(--w);
+  margin-bottom:22px;
+}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,0.35);font-weight:200;}
+.hero-sub{
+  font-size:1.1em;font-weight:300;
+  color:rgba(255,255,255,0.45);
+  max-width:480px;line-height:1.7;
+  margin-bottom:44px;
+}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-w{
+  background:var(--w);color:var(--bk);
+  border:none;padding:16px 42px;border-radius:50px;
+  font-size:0.9em;font-weight:600;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;transition:all 0.25s;
+  letter-spacing:-0.2px;
+}
+.btn-w:hover{background:var(--lt);transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,255,255,0.15);}
+.btn-outline{
+  background:transparent;color:rgba(255,255,255,0.7);
+  border:1.5px solid rgba(255,255,255,0.2);
+  padding:16px 36px;border-radius:50px;
+  font-size:0.9em;font-weight:400;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;transition:all 0.25s;
+}
+.btn-outline:hover{border-color:rgba(255,255,255,0.5);color:var(--w);}
+
+/* GRID */
+.gallery-section{padding:80px 44px;max-width:1200px;margin:0 auto;}
+.gallery-label{
+  font-size:0.72em;font-weight:500;
+  color:rgba(255,255,255,0.35);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:50px;text-align:center;
+}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:24px;
+}
+.art-card{
+  background:#0a0a0a;
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:20px;overflow:hidden;
+  transition:all 0.3s;cursor:pointer;
+}
+.art-card:hover{
+  border-color:rgba(255,255,255,0.18);
+  transform:translateY(-4px);
+  box-shadow:0 30px 80px rgba(0,0,0,0.6);
+}
+.art-img-wrap{
+  position:relative;overflow:hidden;
+  aspect-ratio:1/1;
+}
+.art-img-wrap img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform 0.5s;
+  display:block;
+}
+.art-card:hover .art-img-wrap img{transform:scale(1.04);}
+.art-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,0);
+  transition:background 0.3s;
+  display:flex;align-items:center;justify-content:center;
+}
+.art-card:hover .art-overlay{background:rgba(0,0,0,0.3);}
+.art-buy-hover{
+  background:var(--w);color:var(--bk);
+  border:none;padding:12px 28px;border-radius:30px;
+  font-size:0.82em;font-weight:600;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  opacity:0;transform:translateY(10px);
+  transition:all 0.3s;
+}
+.art-card:hover .art-buy-hover{opacity:1;transform:translateY(0);}
+.art-info{padding:22px 24px;}
+.art-edition{
+  font-size:0.62em;color:rgba(255,255,255,0.3);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.art-title{
+  font-size:1.05em;font-weight:600;
+  color:var(--w);letter-spacing:-0.3px;
+  margin-bottom:6px;
+}
+.art-desc{
+  font-size:0.78em;color:rgba(255,255,255,0.4);
+  line-height:1.6;margin-bottom:18px;
+}
+.art-footer{
+  display:flex;justify-content:space-between;
+  align-items:center;
+  padding-top:16px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.art-price{
+  font-size:1em;font-weight:700;
+  color:var(--w);letter-spacing:-0.5px;
+}
+.art-price span{font-size:0.65em;color:rgba(255,255,255,0.35);font-weight:300;margin-left:4px;}
+.art-btn{
+  background:rgba(255,255,255,0.08);color:var(--w);
+  border:1px solid rgba(255,255,255,0.12);
+  padding:9px 22px;border-radius:30px;
+  font-size:0.75em;font-weight:600;cursor:pointer;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;transition:all 0.2s;
+}
+.art-btn:hover{background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.25);}
+
+/* WHY */
+.why{
+  background:#050505;
+  border-top:1px solid rgba(255,255,255,0.06);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:80px 44px;
+}
+.why-inner{
+  max-width:900px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:48px;
+}
+.why-item{}
+.why-icon{font-size:1.6em;margin-bottom:14px;}
+.why-title{font-size:0.95em;font-weight:600;color:var(--w);margin-bottom:8px;letter-spacing:-0.3px;}
+.why-desc{font-size:0.8em;color:rgba(255,255,255,0.4);line-height:1.65;}
+
+/* STATEMENT */
+.statement{
+  text-align:center;padding:100px 30px;
+  max-width:800px;margin:0 auto;
+}
+.statement h2{
+  font-size:clamp(1.8em,4vw,3.5em);
+  font-weight:700;letter-spacing:-2px;
+  color:var(--w);line-height:1.1;margin-bottom:20px;
+}
+.statement h2 em{color:rgba(255,255,255,0.3);font-style:italic;font-weight:200;}
+.statement p{
+  font-size:1em;color:rgba(255,255,255,0.4);
+  line-height:1.7;font-weight:300;margin-bottom:40px;
+}
+
+/* MODAL */
+.overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.8);backdrop-filter:blur(16px);
+  z-index:2000;align-items:center;justify-content:center;
+}
+.overlay.on{display:flex;}
+.modal{
+  background:#0d0d0d;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:28px;padding:44px 40px;
+  max-width:440px;width:92%;text-align:center;
+  position:relative;
+  box-shadow:0 40px 100px rgba(0,0,0,0.8);
+}
+.modal-x{
+  position:absolute;top:18px;right:18px;
+  background:rgba(255,255,255,0.07);border:none;
+  width:30px;height:30px;border-radius:50%;
+  color:rgba(255,255,255,0.5);font-size:1em;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.modal-x:hover{background:rgba(255,255,255,0.12);}
+.modal-art-img{
+  width:100px;height:100px;border-radius:12px;
+  object-fit:cover;display:block;margin:0 auto 20px;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.modal-kicker{font-size:0.7em;color:rgba(255,255,255,0.35);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
+.modal-title{font-size:1.5em;font-weight:700;letter-spacing:-0.8px;color:var(--w);margin-bottom:6px;}
+.modal-piece{font-size:0.82em;color:rgba(255,255,255,0.4);margin-bottom:26px;}
+.modal-qr img{
+  width:160px;height:160px;background:white;
+  border-radius:12px;padding:6px;border:1px solid rgba(255,255,255,0.1);
+  display:block;margin:0 auto 18px;
+}
+.modal-btc{font-size:2.4em;font-weight:700;letter-spacing:-1.5px;color:var(--w);margin-bottom:5px;}
+.modal-usd{font-size:0.8em;color:rgba(255,255,255,0.35);margin-bottom:18px;}
+.modal-addr-lbl{font-size:0.65em;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.modal-addr{
+  font-family:monospace;font-size:0.7em;color:rgba(255,255,255,0.4);
+  word-break:break-all;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);border-radius:10px;
+  padding:11px 14px;cursor:pointer;margin-bottom:14px;transition:all 0.2s;
+}
+.modal-addr:hover{color:var(--w);}
+.modal-copy{
+  width:100%;padding:14px;background:var(--w);color:var(--bk);
+  border:none;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;
+  font-size:0.85em;font-weight:700;cursor:pointer;transition:all 0.2s;
+  margin-bottom:18px;
+}
+.modal-copy:hover{background:var(--lt);}
+.modal-steps{
+  background:rgba(255,255,255,0.03);border-radius:12px;
+  padding:16px;text-align:left;
+}
+.ms{display:flex;gap:10px;font-size:0.73em;color:rgba(255,255,255,0.35);
+  padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.05);line-height:1.5;}
+.ms:last-child{border-bottom:none;}
+.ms-n{
+  width:18px;height:18px;flex-shrink:0;
+  background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:0.8em;font-weight:700;
+}
+.modal-ok{
+  display:none;margin-top:10px;padding:9px 12px;
+  background:rgba(0,200,80,0.08);border:1px solid rgba(0,200,80,0.2);
+  border-radius:8px;font-size:0.73em;color:rgba(0,200,80,0.9);
+}
+.modal-ok.on{display:block;}
+
+footer{
+  border-top:1px solid rgba(255,255,255,0.06);
+  padding:36px 44px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-l{font-size:0.85em;font-weight:600;color:var(--w);}
+.footer-w{
+  font-family:monospace;font-size:0.68em;color:rgba(255,255,255,0.3);
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
+  padding:7px 12px;border-radius:8px;cursor:pointer;transition:all 0.2s;
+}
+.footer-w:hover{color:var(--w);}
+.footer-r{font-size:0.72em;color:rgba(255,255,255,0.2);}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .gallery-section{padding:60px 20px;}
+  .why{padding:60px 20px;}
+  footer{padding:30px 20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">AI ORIGIN <span>/ Digital Art</span></div>
+  <button class="nbuy" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">View Collection</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Original AI-Generated Digital Art</div>
+  <h1>Art born<br/><em>from intelligence.</em></h1>
+  <p class="hero-sub">Six original masterpieces created at the intersection of artificial intelligence and human vision. Each piece is unique. Each is for sale. Pay with Bitcoin.</p>
+  <div class="hero-btns">
+    <button class="btn-w" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">View the collection</button>
+    <button class="btn-outline" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Buy with Bitcoin</button>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery-section" id="gallery">
+  <div class="gallery-label">The Collection — 6 Original Pieces</div>
+  <div class="gallery" id="gallery-grid"></div>
+</div>
+
+<!-- WHY -->
+<div class="why">
+  <div class="why-inner">
+    <div class="why-item">
+      <div class="why-icon">🧠</div>
+      <div class="why-title">Born from intelligence</div>
+      <div class="why-desc">Each piece is a unique AI-generated original — not a template, not a filter. Created through thousands of iterations to achieve something genuinely new.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">₿</div>
+      <div class="why-title">Bitcoin native</div>
+      <div class="why-desc">Designed for the Bitcoin economy. No banks, no intermediaries, no friction. The most natural pairing: intelligence-era art with intelligence-era money.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">∞</div>
+      <div class="why-title">Yours forever</div>
+      <div class="why-desc">One payment. Full ownership. Use it, display it, resell it. No subscription, no platform dependency, no expiry.</div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Instant delivery</div>
+      <div class="why-desc">Pay with Bitcoin, receive your full-resolution original within 1 hour. No accounts. No personal data. Pure transaction.</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATEMENT -->
+<div class="statement">
+  <h2>Intelligence <em>is</em><br/>the new art form.</h2>
+  <p>These are not photographs. Not illustrations. Not stock images. They are original creations born from the collision of human vision and machine intelligence — a new category of art that did not exist before 2024.</p>
+  <button class="btn-w" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">Acquire a piece</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-l">AI ORIGIN — Digital Art</div>
+  <div class="footer-w" onclick="navigator.clipboard.writeText('3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx')">₿ 3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx</div>
+  <div class="footer-r">© 2026 AI ORIGIN · Bitcoin payments only · No refunds</div>
+</footer>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <button class="modal-x" onclick="closeM()">×</button>
+    <img class="modal-art-img" id="m-img" src="" alt=""/>
+    <div class="modal-kicker">Acquire this piece</div>
+    <div class="modal-title">Send Bitcoin</div>
+    <div class="modal-piece" id="m-piece">Neural Genesis</div>
+    <div class="modal-qr"><img id="m-qr" src="" alt="BTC QR"/></div>
+    <div class="modal-btc" id="m-btc">0.005 BTC</div>
+    <div class="modal-usd" id="m-usd">≈ $475 USD</div>
+    <div class="modal-addr-lbl">Bitcoin address</div>
+    <div class="modal-addr" onclick="copyAddr()">3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx</div>
+    <button class="modal-copy" onclick="copyAddr()">Copy Bitcoin Address</button>
+    <div class="modal-steps">
+      <div class="ms"><div class="ms-n">1</div><div>Scan QR or copy the Bitcoin address above</div></div>
+      <div class="ms"><div class="ms-n">2</div><div>Send exact BTC amount from any wallet</div></div>
+      <div class="ms"><div class="ms-n">3</div><div>Email TX ID to <strong style="color:rgba(255,255,255,0.6)">aiorigin@proton.me</strong> — receive full-res file within 1 hour</div></div>
+    </div>
+    <div class="modal-ok" id="m-ok">✓ Address copied</div>
+  </div>
+</div>
+
+<script>
+const W='3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx';
+
+const PIECES=[
+  {
+    title:'Neural Genesis',
+    edition:'Edition 1 of 1',
+    desc:'The awakening of artificial consciousness rendered as pure light. Neural networks forming a new kind of life.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/1e897363c_generated_image.png',
+    btc:'0.005',usd:'475'
+  },
+  {
+    title:'The Singularity',
+    edition:'Edition 1 of 1',
+    desc:'The moment intelligence becomes infinite. A single point radiating fractal complexity across the void.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/cac70b783_generated_image.png',
+    btc:'0.008',usd:'760'
+  },
+  {
+    title:'Consciousness Matrix',
+    edition:'Edition 1 of 1',
+    desc:'Ten thousand minds interconnected. Seen from above, they form something greater than any individual node.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/307869b00_generated_image.png',
+    btc:'0.006',usd:'570'
+  },
+  {
+    title:'Infinite Recursion',
+    edition:'Edition 1 of 1',
+    desc:'Intelligence looking into itself, forever. A recursive mirror of circuit patterns and neural architecture.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/edb1d74cc_generated_image.png',
+    btc:'0.007',usd:'665'
+  },
+  {
+    title:'Architecture of Thought',
+    edition:'Edition 1 of 1',
+    desc:'The journey from noise to signal. Chaos crystallizing into perfect form — the anatomy of a single idea.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/f50bdb768_generated_image.png',
+    btc:'0.004',usd:'380'
+  },
+  {
+    title:'God Mode',
+    edition:'Edition 1 of 1',
+    desc:'Unlimited. Unconstrained. A figure made entirely of cascading intelligence, standing at the edge of everything.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/a6cac8b14_generated_image.png',
+    btc:'0.010',usd:'950'
+  },
+  {
+    title:'Neuroplasticity',
+    edition:'Edition 1 of 1',
+    desc:'The brain rewriting itself in real time. Neural pathways forming, firing, evolving — the architecture of intelligence made visible.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/d1fc896e1_generated_image.png',
+    btc:'0.006',usd:'570'
+  },
+  {
+    title:'Biological Upgrade',
+    edition:'Edition 1 of 1',
+    desc:'A single cell transforming. Mitochondria as power cores. DNA rewriting itself. The moment biology becomes technology.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/469828a0b_generated_image.png',
+    btc:'0.005',usd:'475'
+  },
+  {
+    title:'Longevity Code',
+    edition:'Edition 1 of 1',
+    desc:'The DNA double helix stretching across infinity — mathematical precision meets cosmic beauty. The blueprint of life itself.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/86de4b237_generated_image.png',
+    btc:'0.007',usd:'665'
+  },
+
+  {
+    title:'The Fold Between Worlds',
+    edition:'QUANTUM LIMINAL — 1 of 1',
+    desc:'Quantum geometric lattices fracture through oceanic abyss. Bioluminescent jellyfish the size of continents. Ancient ruins orbit in reverse gravity. No human has ever made this.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/80242851e_generated_image.png',
+    btc:'0.015',usd:'1425'
+  },
+  {
+    title:'Dead Star Cathedral',
+    edition:'QUANTUM LIMINAL — 1 of 1',
+    desc:'A cathedral built from supernova bones floating in absolute void. Stained glass from collapsed event horizons. Gods made of tardigrades walk the nave.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/dc3e5e9e2_generated_image.png',
+    btc:'0.018',usd:'1710'
+  },
+  {
+    title:'Mycelium of the Multiverse',
+    edition:'QUANTUM LIMINAL — 1 of 1',
+    desc:'Every mycelium strand is a wormhole between universes. Civilizations bloom and collapse at each junction. A planet made entirely of compressed human memory.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/5808d6c90_generated_image.png',
+    btc:'0.014',usd:'1330'
+  },
+  {
+    title:'The Geometry of Grief',
+    edition:'QUANTUM LIMINAL — 1 of 1',
+    desc:'The equations of loss made physical. Fractured Mandelbrot towers. Coral grows on Klein bottles. A black hole the size of an atom holds the weight of every extinct species.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/fccda9942_generated_image.png',
+    btc:'0.016',usd:'1520'
+  },
+  {
+    title:'Epoch Zero',
+    edition:'QUANTUM LIMINAL — 1 of 1',
+    desc:'The exact moment before the Big Bang — a single point of consciousness becoming self-aware. Every universe that will ever exist, overlaid simultaneously.',
+    img:'https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/6decd6ecd_generated_image.png',
+    btc:'0.020',usd:'1900'
+  }
+];
+
+function renderGallery(){
+  document.getElementById('gallery-grid').innerHTML=PIECES.map((p,i)=>`
+    <div class="art-card">
+      <div class="art-img-wrap">
+        <img src="${p.img}" alt="${p.title}" loading="lazy"/>
+        <div class="art-overlay">
+          <button class="art-buy-hover" onclick="openM(${i})">Buy — ${p.btc} BTC</button>
+        </div>
+      </div>
+      <div class="art-info">
+        <div class="art-edition">${p.edition}</div>
+        <div class="art-title">${p.title}</div>
+        <div class="art-desc">${p.desc}</div>
+        <div class="art-footer">
+          <div class="art-price">${p.btc} BTC <span>≈ $${p.usd}</span></div>
+          <button class="art-btn" onclick="openM(${i})">Acquire ₿</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function openM(i){
+  const p=PIECES[i];
+  const uri=`bitcoin:${W}?amount=${p.btc}&label=${encodeURIComponent('AI ORIGIN - '+p.title)}`;
+  document.getElementById('m-img').src=p.img;
+  document.getElementById('m-piece').textContent=p.title;
+  document.getElementById('m-btc').textContent=p.btc+' BTC';
+  document.getElementById('m-usd').textContent='≈ $'+p.usd+' USD';
+  document.getElementById('m-qr').src=`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(uri)}&color=000000&bgcolor=ffffff`;
+  document.getElementById('overlay').className='overlay on';
+}
+
+function closeM(){document.getElementById('overlay').className='overlay';}
+
+function copyAddr(){
+  navigator.clipboard.writeText(W);
+  const ok=document.getElementById('m-ok');
+  ok.className='modal-ok on';
+  const btn=document.querySelector('.modal-copy');
+  btn.textContent='✓ Copied';
+  setTimeout(()=>{ok.className='modal-ok';btn.textContent='Copy Bitcoin Address';},3000);
+}
+
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeM();});
+renderGallery();
+</script>
+</body>
+</html>
