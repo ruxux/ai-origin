@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BITFLOW — Abraham Adam's Bitcoin Command Center</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: 
+      radial-gradient(ellipse at 20% 50%, rgba(255,165,0,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255,140,0,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, rgba(255,200,0,0.04) 0%, transparent 50%);
+    z-index: 0;
+    animation: pulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse { 0% { opacity: 0.6; } 100% { opacity: 1; } }
+
+  .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .particle {
+    position: absolute; width: 2px; height: 2px; background: #f7931a;
+    border-radius: 50%; animation: float linear infinite; opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 1; } 90% { opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+  }
+
+  .container { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  header { text-align: center; padding: 50px 20px 30px; }
+
+  .logo {
+    font-family: 'Orbitron', monospace; font-size: 3.5em; font-weight: 900;
+    background: linear-gradient(135deg, #f7931a, #ffcc00, #f7931a);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    letter-spacing: 8px; animation: glow 3s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    0% { filter: drop-shadow(0 0 10px rgba(247,147,26,0.5)); }
+    100% { filter: drop-shadow(0 0 30px rgba(247,147,26,0.9)); }
+  }
+
+  .tagline { color: rgba(255,255,255,0.5); font-size: 0.9em; letter-spacing: 4px; text-transform: uppercase; margin-top: 8px; }
+
+  .hero-img {
+    width: 100%; max-height: 300px; object-fit: cover; border-radius: 20px;
+    border: 1px solid rgba(247,147,26,0.3); margin: 20px 0;
+    box-shadow: 0 0 60px rgba(247,147,26,0.2);
+  }
+
+  .card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(247,147,26,0.2);
+    border-radius: 20px; padding: 30px; margin: 20px 0; backdrop-filter: blur(10px); transition: all 0.3s;
+  }
+  .card:hover { border-color: rgba(247,147,26,0.5); box-shadow: 0 0 40px rgba(247,147,26,0.1); transform: translateY(-2px); }
+
+  .card-title {
+    font-family: 'Orbitron', monospace; font-size: 0.8em; letter-spacing: 3px; color: #f7931a;
+    text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+  }
+  .card-title::before { content: ''; width: 3px; height: 20px; background: #f7931a; border-radius: 2px; }
+
+  .wallet-section { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+  .qr-container { flex-shrink: 0; }
+  .qr-container img { width: 160px; height: 160px; border-radius: 12px; border: 2px solid #f7931a; padding: 8px; background: white; }
+  .wallet-info { flex: 1; min-width: 200px; }
+
+  .wallet-address {
+    font-family: monospace; font-size: 0.75em; color: #f7931a; word-break: break-all;
+    background: rgba(247,147,26,0.05); padding: 12px; border-radius: 8px;
+    border: 1px solid rgba(247,147,26,0.2); cursor: pointer; transition: all 0.2s; margin-bottom: 12px;
+  }
+  .wallet-address:hover { background: rgba(247,147,26,0.1); }
+
+  .copy-btn {
+    background: linear-gradient(135deg, #f7931a, #ff6b00); border: none; color: white;
+    padding: 10px 24px; border-radius: 8px; cursor: pointer; font-family: 'Orbitron', monospace;
+    font-size: 0.7em; letter-spacing: 2px; transition: all 0.2s; width: 100%; margin-bottom: 8px;
+  }
+  .copy-btn:hover { transform: scale(1.03); box-shadow: 0 0 20px rgba(247,147,26,0.4); }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+  .stat-box { background: rgba(247,147,26,0.05); border: 1px solid rgba(247,147,26,0.2); border-radius: 12px; padding: 20px; text-align: center; }
+  .stat-label { font-size: 0.65em; letter-spacing: 2px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 8px; }
+  .stat-value { font-family: 'Orbitron', monospace; font-size: 1.2em; color: #f7931a; font-weight: 700; }
+  .stat-value.loading { color: rgba(247,147,26,0.4); animation: blink 1.5s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .tx-list { margin-top: 10px; }
+  .tx-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 16px; border-radius: 10px; margin-bottom: 8px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); transition: all 0.2s; flex-wrap: wrap; gap: 8px;
+  }
+  .tx-item:hover { background: rgba(247,147,26,0.05); border-color: rgba(247,147,26,0.2); }
+  .tx-hash { font-family: monospace; font-size: 0.7em; color: rgba(255,255,255,0.4); }
+  .tx-amount { font-family: 'Orbitron', monospace; font-size: 0.8em; color: #4cff91; font-weight: 700; }
+  .tx-amount.out { color: #ff4c4c; }
+  .tx-date { font-size: 0.65em; color: rgba(255,255,255,0.3); }
+  .tx-confirm { font-size: 0.6em; padding: 3px 8px; border-radius: 20px; background: rgba(76,255,145,0.1); color: #4cff91; border: 1px solid rgba(76,255,145,0.2); }
+
+  .invoice-form { display: grid; gap: 14px; }
+  .invoice-form input, .invoice-form textarea, .invoice-form select {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(247,147,26,0.2);
+    border-radius: 10px; padding: 14px 16px; color: white; font-family: 'Inter', sans-serif;
+    font-size: 0.9em; outline: none; transition: border-color 0.2s;
+  }
+  .invoice-form input:focus, .invoice-form textarea:focus, .invoice-form select:focus {
+    border-color: #f7931a; box-shadow: 0 0 15px rgba(247,147,26,0.15);
+  }
+  .invoice-form select option { background: #111; }
+
+  .generate-btn {
+    background: linear-gradient(135deg, #f7931a, #ffcc00); border: none; color: #000;
+    padding: 14px 30px; border-radius: 10px; cursor: pointer; font-family: 'Orbitron', monospace;
+    font-size: 0.75em; font-weight: 700; letter-spacing: 2px; transition: all 0.3s;
+  }
+  .generate-btn:hover { transform: scale(1.03); box-shadow: 0 0 30px rgba(247,147,26,0.5); }
+
+  .invoice-result {
+    display: none; background: rgba(247,147,26,0.05); border: 1px solid rgba(247,147,26,0.3);
+    border-radius: 12px; padding: 20px; margin-top: 15px; text-align: center;
+  }
+  .invoice-result.show { display: block; }
+  .invoice-link { font-family: monospace; font-size: 0.8em; color: #f7931a; word-break: break-all; margin: 10px 0; }
+
+  .agent-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+  .agent-card {
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 20px; text-align: center; transition: all 0.3s;
+  }
+  .agent-card:hover { border-color: rgba(247,147,26,0.4); background: rgba(247,147,26,0.03); transform: translateY(-3px); }
+  .agent-icon { font-size: 2.5em; margin-bottom: 10px; display: block; }
+  .agent-name { font-family: 'Orbitron', monospace; font-size: 0.7em; color: #f7931a; letter-spacing: 1px; margin-bottom: 6px; }
+  .agent-desc { font-size: 0.72em; color: rgba(255,255,255,0.4); line-height: 1.5; }
+  .agent-status { display: inline-block; margin-top: 10px; padding: 3px 10px; border-radius: 20px; font-size: 0.6em; letter-spacing: 1px; }
+  .agent-status.active { background: rgba(76,255,145,0.1); color: #4cff91; border: 1px solid rgba(76,255,145,0.3); }
+
+  .refresh-btn {
+    background: transparent; border: 1px solid rgba(247,147,26,0.3); color: #f7931a;
+    padding: 8px 20px; border-radius: 8px; cursor: pointer; font-family: 'Orbitron', monospace;
+    font-size: 0.65em; letter-spacing: 2px; transition: all 0.2s; float: right;
+  }
+  .refresh-btn:hover { background: rgba(247,147,26,0.1); }
+
+  .status-bar { display: flex; align-items: center; gap: 8px; margin-top: 15px; font-size: 0.7em; color: rgba(255,255,255,0.3); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4cff91; animation: blink 2s infinite; }
+
+  .alert { padding: 12px 16px; border-radius: 8px; font-size: 0.8em; margin-top: 10px; }
+  .alert.success { background: rgba(76,255,145,0.1); border: 1px solid rgba(76,255,145,0.3); color: #4cff91; }
+
+  footer { text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.2); font-size: 0.75em; letter-spacing: 2px; }
+
+  @media (max-width: 600px) {
+    .logo { font-size: 2.2em; }
+    .wallet-section { flex-direction: column; align-items: center; }
+    .qr-container img { width: 140px; height: 140px; }
+  }
+</style>
+</head>
+<body>
+<div class="particles" id="particles"></div>
+<div class="container">
+  <header>
+    <div class="logo">⚡ BITFLOW</div>
+    <div class="tagline">Abraham Adam's Bitcoin Command Center</div>
+  </header>
+
+  <img src="https://media.base44.com/images/public/6a0cdf955814d1a6aff64a4b/279d53a59_generated_image.png" alt="BitFlow" class="hero-img"/>
+
+  <div class="card">
+    <div class="card-title">₿ Your Bitcoin Wallet</div>
+    <div class="wallet-section">
+      <div class="qr-container">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=bitcoin:3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx&color=f7931a&bgcolor=ffffff" alt="QR Code"/>
+      </div>
+      <div class="wallet-info">
+        <div class="wallet-address" onclick="copyAddress()">3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx</div>
+        <button class="copy-btn" onclick="copyAddress()">📋 COPY ADDRESS</button>
+        <button class="copy-btn" onclick="shareWallet()" style="background:linear-gradient(135deg,#222,#333);color:#f7931a;border:1px solid rgba(247,147,26,0.3);">🔗 SHARE PAYMENT PAGE</button>
+      </div>
+    </div>
+    <div id="copyAlert"></div>
+    <div class="status-bar"><div class="status-dot"></div>LIVE BLOCKCHAIN MONITORING ACTIVE</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📡 Live Wallet Stats <button class="refresh-btn" onclick="loadWalletData()">↻ REFRESH</button></div>
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-label">Current Balance</div><div class="stat-value loading" id="stat-balance">...</div></div>
+      <div class="stat-box"><div class="stat-label">Total Received</div><div class="stat-value loading" id="stat-received">...</div></div>
+      <div class="stat-box"><div class="stat-label">Transactions</div><div class="stat-value loading" id="stat-txcount">...</div></div>
+      <div class="stat-box"><div class="stat-label">Unconfirmed</div><div class="stat-value loading" id="stat-unconfirmed">...</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🔗 Recent Transactions</div>
+    <div class="tx-list" id="tx-list"><div style="text-align:center;color:rgba(255,255,255,0.3);padding:20px;font-size:0.8em;">Loading...</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📨 Payment Request Generator</div>
+    <p style="font-size:0.8em;color:rgba(255,255,255,0.4);margin-bottom:20px;">Create a shareable payment request for any amount. Send to anyone, anywhere in the world.</p>
+    <div class="invoice-form">
+      <input type="text" id="inv-title" placeholder="What are you requesting payment for?"/>
+      <textarea id="inv-desc" placeholder="Description (optional)" rows="2"></textarea>
+      <input type="number" id="inv-amount" placeholder="Amount in BTC (e.g. 0.001)" step="0.00001" min="0"/>
+      <select id="inv-category">
+        <option value="service">💼 Service</option>
+        <option value="product">📦 Product</option>
+        <option value="tip">💝 Tip / Gift</option>
+        <option value="donation">🌍 Donation</option>
+        <option value="custom">✨ Custom</option>
+      </select>
+      <button class="generate-btn" onclick="generateInvoice()">⚡ GENERATE PAYMENT REQUEST</button>
+    </div>
+    <div class="invoice-result" id="invoice-result">
+      <div style="font-size:0.8em;color:rgba(255,255,255,0.5);margin-bottom:10px;">YOUR PAYMENT LINK</div>
+      <div class="invoice-link" id="invoice-link"></div>
+      <img id="invoice-qr" src="" style="width:130px;height:130px;border-radius:8px;margin:10px auto;display:block;background:white;padding:5px;"/>
+      <button class="copy-btn" onclick="copyInvoice()" style="max-width:250px;margin:0 auto;">📋 COPY PAYMENT LINK</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🤖 AI Agent Network</div>
+    <p style="font-size:0.8em;color:rgba(255,255,255,0.4);margin-bottom:20px;">Your autonomous AI agents working 24/7.</p>
+    <div class="agent-grid">
+      <div class="agent-card"><span class="agent-icon">🔍</span><div class="agent-name">SCOUT</div><div class="agent-desc">Monitors blockchain for incoming transactions and alerts instantly</div><span class="agent-status active">● ACTIVE</span></div>
+      <div class="agent-card"><span class="agent-icon">📣</span><div class="agent-name">HERALD</div><div class="agent-desc">Generates and shares your payment links automatically</div><span class="agent-status active">● ACTIVE</span></div>
+      <div class="agent-card"><span class="agent-icon">📊</span><div class="agent-name">ORACLE</div><div class="agent-desc">Tracks BTC price and calculates real-time USD value of wallet</div><span class="agent-status active">● ACTIVE</span></div>
+      <div class="agent-card"><span class="agent-icon">🛡️</span><div class="agent-name">GUARDIAN</div><div class="agent-desc">Verifies transaction confirmations and security status</div><span class="agent-status active">● ACTIVE</span></div>
+      <div class="agent-card"><span class="agent-icon">💡</span><div class="agent-name">MAESTRO</div><div class="agent-desc">Orchestrates all agents and optimizes receiving strategy</div><span class="agent-status active">● ACTIVE</span></div>
+      <div class="agent-card"><span class="agent-icon">🌐</span><div class="agent-name">NEXUS</div><div class="agent-desc">Bridges wallet to global payment networks worldwide</div><span class="agent-status active">● ACTIVE</span></div>
+    </div>
+  </div>
+
+  <footer>⚡ BITFLOW — BUILT FOR ABRAHAM ADAM — AI AGENT NETWORK<br/>BITCOIN: 3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx</footer>
+</div>
+
+<script>
+const WALLET = '3399tM7gD3ho9Dr5LTVmpuRs9H6HYzihFx';
+
+function createParticles() {
+  const c = document.getElementById('particles');
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 15) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+    c.appendChild(p);
+  }
+}
+
+function copyAddress() {
+  navigator.clipboard.writeText(WALLET);
+  document.getElementById('copyAlert').innerHTML = '<div class="alert success">✅ Wallet address copied!</div>';
+  setTimeout(() => document.getElementById('copyAlert').innerHTML = '', 3000);
+}
+
+function shareWallet() {
+  if (navigator.share) {
+    navigator.share({ title: 'Send Bitcoin to Abraham Adam', text: 'Send BTC to: ' + WALLET, url: window.location.href });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    document.getElementById('copyAlert').innerHTML = '<div class="alert success">🔗 Page link copied! Share it to receive BTC.</div>';
+    setTimeout(() => document.getElementById('copyAlert').innerHTML = '', 4000);
+  }
+}
+
+async function loadWalletData() {
+  ['stat-balance','stat-received','stat-txcount','stat-unconfirmed'].forEach(id => {
+    const el = document.getElementById(id);
+    el.textContent = '...'; el.className = 'stat-value loading';
+  });
+  try {
+    const res = await fetch('https://api.blockcypher.com/v1/btc/main/addrs/' + WALLET + '/balance');
+    const data = await res.json();
+    document.getElementById('stat-balance').textContent = (data.balance / 1e8).toFixed(8) + ' ₿';
+    document.getElementById('stat-received').textContent = (data.total_received / 1e8).toFixed(8) + ' ₿';
+    document.getElementById('stat-txcount').textContent = data.n_tx || 0;
+    document.getElementById('stat-unconfirmed').textContent = ((data.unconfirmed_balance||0) / 1e8).toFixed(8) + ' ₿';
+    ['stat-balance','stat-received','stat-txcount','stat-unconfirmed'].forEach(id => document.getElementById(id).className = 'stat-value');
+    loadTransactions();
+  } catch(e) {
+    ['stat-balance','stat-received','stat-txcount','stat-unconfirmed'].forEach(id => { document.getElementById(id).textContent = 'ERR'; });
+  }
+}
+
+async function loadTransactions() {
+  try {
+    const res = await fetch('https://api.blockcypher.com/v1/btc/main/addrs/' + WALLET + '?limit=10');
+    const data = await res.json();
+    const txs = data.txrefs || [];
+    if (!txs.length) { document.getElementById('tx-list').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.3);padding:20px;font-size:0.8em;">No transactions yet. Share your address to start receiving BTC! 🚀</div>'; return; }
+    document.getElementById('tx-list').innerHTML = txs.map(tx => {
+      const date = tx.confirmed ? new Date(tx.confirmed).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}) : 'Pending';
+      const btc = (tx.value / 1e8).toFixed(8);
+      return `<div class="tx-item"><div><div class="tx-hash">${tx.tx_hash.substring(0,20)}...${tx.tx_hash.substring(tx.tx_hash.length-8)}</div><div class="tx-date">${date}</div></div><div style="display:flex;align-items:center;gap:10px;"><div class="tx-amount ${tx.spent?'out':''}">${tx.spent?'−':'+'}${btc} ₿</div><span class="tx-confirm">${tx.confirmations>6?'✓ CONFIRMED':tx.confirmations+' confirms'}</span></div></div>`;
+    }).join('');
+  } catch(e) { document.getElementById('tx-list').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,0.3);padding:20px;">Unable to load transactions</div>'; }
+}
+
+function generateInvoice() {
+  const title = document.getElementById('inv-title').value || 'Payment';
+  const amount = document.getElementById('inv-amount').value;
+  let uri = 'bitcoin:' + WALLET;
+  if (amount) uri += '?amount=' + amount;
+  if (title) uri += (amount ? '&' : '?') + 'label=' + encodeURIComponent(title);
+  document.getElementById('invoice-link').textContent = uri;
+  document.getElementById('invoice-qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=' + encodeURIComponent(uri) + '&color=f7931a&bgcolor=ffffff';
+  document.getElementById('invoice-result').className = 'invoice-result show';
+}
+
+function copyInvoice() {
+  navigator.clipboard.writeText(document.getElementById('invoice-link').textContent);
+  const btn = document.querySelector('#invoice-result .copy-btn');
+  btn.textContent = '✅ COPIED!';
+  setTimeout(() => btn.textContent = '📋 COPY PAYMENT LINK', 2000);
+}
+
+createParticles();
+loadWalletData();
+setInterval(loadWalletData, 60000);
+</script>
+</body>
+</html>
